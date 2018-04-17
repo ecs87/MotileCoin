@@ -143,6 +143,7 @@ Build LevelDB static libs first:
     cd ../..
 	
 Then Build secp256k1:
+
 	cd src/secp256k1
 	./configure --enable-module-recovery --enable-tests=no
 	make
