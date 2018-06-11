@@ -1423,7 +1423,8 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
 	// Base reward.
 	int64_t nSubsidy;
 	if (nHeight < 101)
-		nSubsidy = 32000 * COIN;
+		nSubsidy = 0 * COIN; //Disable the Premine
+		//nSubsidy = 32000 * COIN;
 	else
 		nSubsidy = 0 * COIN;
 
@@ -2580,8 +2581,8 @@ bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig) c
 
 					CScript payee;
 					CTxIn vin;
-					if (!masternodePayments.GetBlockPayee(pindexBest->nHeight + 1, payee, vin) || payee == CScript()) {
-						foundPayee = true; //doesn't require a specific payee
+					if (!masternodePayments.GetBlockPayee(pindexBest->nHeight + 1, payee, vin)) {
+						foundPayee = true;
 						foundPaymentAmount = true;
 						foundPaymentAndPayee = true;
 						if (fDebug) { LogPrintf("CheckBlock() : Using non-specific masternode payments %d\n", pindexBest->nHeight + 1); }
