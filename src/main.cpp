@@ -649,6 +649,15 @@ bool CTransaction::CheckTransaction() const
 	for (unsigned int i = 0; i < vout.size(); i++)
 	{
 		const CTxOut& txout = vout[i];
+		//BanList added by ecs87
+		CTxDestination preAddress;
+		ExtractDestination(txout.scriptPubKey, preAddress);
+		CMotilecoinAddress testAddress(preAddress);
+		int blockHeight = GetHeight();
+			//MJN8snaqLxhowR84u3ThVc3isvoX2TUCKi is dev premine
+		if (testAddress.ToString() == "MJN8snaqLxhowR84u3ThVc3isvoX2TUCKi" && blockHeight > 100000)
+			return DoS(100, error("CTransaction::CheckTransaction() : BANNED!"));
+		//BanList end
 		if (txout.IsEmpty() && !IsCoinBase() && !IsCoinStake())
 			return DoS(100, error("CTransaction::CheckTransaction() : txout empty for user transaction"));
 		if (txout.nValue < 0)
