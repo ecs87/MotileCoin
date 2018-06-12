@@ -1423,8 +1423,7 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
 	// Base reward.
 	int64_t nSubsidy;
 	if (nHeight < 101)
-		nSubsidy = 0 * COIN; //Disable the Premine
-		//nSubsidy = 32000 * COIN;
+		nSubsidy = 32000 * COIN;
 	else
 		nSubsidy = 0 * COIN;
 
